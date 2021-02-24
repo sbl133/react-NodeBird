@@ -14,11 +14,11 @@ const UserProfile = () => {
             actions={[
                 <div key="twit">짹쨱<br />{me.Posts.length}</div>,
                 <div key="followings">팔로잉<br />{me.Followings.length}</div>,
-                <div key="follower">팔로워<br />{me.Fowllower.length}</div>,
+                <div key="follower">팔로워<br />{me.Follower.length}</div>,
             ]}
         >
             <Card.Meta
-                // avatar: 이미지?
+                // avatar: 이모티콘
                 avatar={<Avatar>{me.nickname[0]}</Avatar>}
                 title={me.nickname}
             />

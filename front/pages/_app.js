@@ -6,15 +6,15 @@ import withReduxSaga from 'next-redux-saga';
 import wrapper from '../store/configureStore';
 
 // Component : pages에 있는 파일들의 리턴값
-const NodeBird = ({ Component }) => {
+const NodeBird = ({ Component }) => (
         <>
             <Head>
                 <meta charSet="utf-8" />
                 <title>NodeBird</title>
             </Head>
             <Component />
-        </>;
-};
+        </>
+);
 
 NodeBird.propTypes = {
     Component: PropTypes.elementType.isRequired,
