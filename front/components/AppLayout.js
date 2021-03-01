@@ -1,11 +1,13 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Input, Menu, Row, Col } from 'antd';
 import { useSelector } from 'react-redux';
 import { createGlobalStyle } from 'styled-components';
+import Router from 'next/router';
 import UserProfile from './UserProfile';
 import LoginForm from './LoginFrom';
+import useInput from '../hooks/useInput';
 // import styled from 'styled-components';
 
 // inline style을 객체로 설정하면 렌더링될때마다 값이 다르다고 인식해서 리렌더링된다.
@@ -28,6 +30,10 @@ const Global = createGlobalStyle`
 const AppLayout = ({ children }) => { // children: 해당component안에 있는 element?
     const { me } = useSelector((state) => state.user);
     const InputSearchStyle = useMemo(() => ({ verticalAlign: 'middle' }));
+    const [searchInput, onChangeSearchInput] = useInput('');
+    const onSearch = useCallback(() => {
+        Router.push(`/hashtag/${searchInput}`);
+    }, [searchInput]);
     return (
         <div>
             <Global />
@@ -39,10 +45,13 @@ const AppLayout = ({ children }) => { // children: 해당component안에 있는 
                 <Link href="/profile"><a>프로필</a></Link>
                 </Menu.Item>
                 <Menu.Item>
-                <Input.Search style={InputSearchStyle} enterButton />
-                </Menu.Item>
-                <Menu.Item>
-                <Link href="/signup"><a>회원가입</a></Link>
+                <Input.Search
+                style={InputSearchStyle}
+                enterButton
+                value={searchInput}
+                onChange={onChangeSearchInput}
+                onSearch={onSearch}
+                />
                 </Menu.Item>
             </Menu>
             {/* xs:모바일 sm:태블릿 md:작은데스크탑 gutter:간격(pedding) */}

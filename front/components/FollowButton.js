@@ -21,6 +21,10 @@ const FollowButton = ({ post }) => {
             });
         }
     }, [isFollowing]);
+
+    if (post.User.id === me.id) { // hooks보단 아래에 위치
+        return null;
+    }
     return (
         <Button loading={followLoading || unfollowLading} onClick={onClickButton}>
             {isFollowing ? '언팔로우' : '팔로우'}
