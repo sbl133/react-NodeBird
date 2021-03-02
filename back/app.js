@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 //access control allow
 app.use(cors({
-    origin: ['http://localhost:3000', 'nodebird.com'], //origin: true로 설정하면 보낸곳의 주소가 자동으로들어가 편함
+    origin: ['http://localhost:3000', 'nodebird.com', 'http://13.125.18.53'], //origin: true로 설정하면 보낸곳의 주소가 자동으로들어가 편함
     credentials: true, //쿠키전달시 true
 }));
 // '/' = 'http://localhost:3065'
