@@ -12,6 +12,8 @@ const db = require('./models');
 const path = require('path');
 const passportConfig = require('./passport');
 const dotenv = require('dotenv'); // 비밀관리
+const hpp = require('hpp');
+const helmet = require('helmet');
 
 dotenv.config();
 const app = express();
@@ -22,10 +24,16 @@ db.sequelize.sync()
     .catch(console.error);
 passportConfig();
 
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'production') {
+    app.use(morgan('combined'));
+    app.use(hpp());
+    app.use(helmet());
+} else {
+    app.use(morgan('dev'));
+}
 //access control allow
 app.use(cors({
-    origin: true, //origin: true로 설정하면 보낸곳의 주소가 자동으로들어가 편함
+    origin: ['http://localhost:3000', 'nodebird.com'], //origin: true로 설정하면 보낸곳의 주소가 자동으로들어가 편함
     credentials: true, //쿠키전달시 true
 }));
 // '/' = 'http://localhost:3065'
